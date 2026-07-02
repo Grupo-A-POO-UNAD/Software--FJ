@@ -7,68 +7,83 @@
 
 from abc import ABC, abstractmethod
 
-# --- EXCEPCIONES PERSONALIZADAS (Manejo avanzado) ---
-class GestionError(Exception):
-    """Clase base para excepciones del sistema."""
-    pass
+# -------------------------
+# Clase abstracta (Padre)
+# -------------------------
+class Servicio(ABC):
 
-class ReservaInvalidaError(GestionError):
-    """Se lanza cuando una reserva no cumple con los requisitos."""
-    pass
-
-# --- CLASES BASE Y ABSTRACCIÓN ---
-class Entidad(ABC):
-    def __init__(self, id_entidad, nombre):
-        self._id_entidad = id_entidad  # Encapsulamiento (Atributo protegido)
-        self._nombre = nombre
-
-    @property
-    def id_entidad(self):
-        return self._id_entidad
-
-    @property
-    def nombre(self):
-        return self._nombre
+    def __init__(self, nombre):
+        self.nombre = nombre
 
     @abstractmethod
-    def obtener_detalles(self):
-        """Método abstracto para obligar al polimorfismo."""
+    def calcular_costo(self):
         pass
 
-# --- CLASES DERIVADAS (Herencia y Polimorfismo) ---
-class Cliente(Entidad):
-    def __init__(self, id_entidad, nombre, email):
-        super().__init__(id_entidad, nombre)
-        self.__email = email  # Atributo privado
+    @abstractmethod
+    def descripcion(self):
+        pass
 
-    @property
-    def email(self):
-        return self.__email
 
-    def obtener_detalles(self):
-        return f"Cliente: {self.nombre} (ID: {self.id_entidad}) - Email: {self.__email}"
+# -------------------------
+# Clase hija 1
+# -------------------------
+class ReservaSala(Servicio):
 
-class Servicio(Entidad):
-    def __init__(self, id_entidad, nombre, precio):
-        super().__init__(id_entidad, nombre)
-        self.__precio = precio
+    def __init__(self, nombre, horas):
+        super().__init__(nombre)
+        self.horas = horas
 
-    @property
-    def precio(self):
-        return self.__precio
+    def calcular_costo(self):
+        return self.horas * 50000
 
-    def obtener_detalles(self):
-        return f"Servicio: {self.nombre} - Precio: ${self.__precio:,}"
+    def descripcion(self):
+        return f"Reserva de sala: {self.nombre}"
 
-# --- SISTEMA DE RESERVAS ---
-class Reserva:
-    def __init__(self, id_reserva, cliente, servicio, fecha):
-        self.__id_reserva = id_reserva
-        self.__cliente = cliente
-        self.__servicio = servicio
-        self.__fecha = fecha
 
-    def registrar(self):
-        if not self.__cliente or not self.__servicio:
-            raise ReservaInvalidaError("La reserva debe contener un Cliente y un Servicio válidos.")
-        return f"Reserva {self.__id_reserva} confirmada para {self.__cliente.nombre} - {self.__servicio.nombre} el {self.__fecha}"
+# -------------------------
+# Clase hija 2
+# -------------------------
+class AlquilerEquipo(Servicio):
+
+    def __init__(self, nombre, dias):
+        super().__init__(nombre)
+        self.dias = dias
+
+    def calcular_costo(self):
+        return self.dias * 30000
+
+    def descripcion(self):
+        return f"Alquiler de equipo: {self.nombre}"
+
+
+# -------------------------
+# Clase hija 3
+# -------------------------
+class AsesoriaEspecializada(Servicio):
+
+    def __init__(self, nombre, horas):
+        super().__init__(nombre)
+        self.horas = horas
+
+    def calcular_costo(self):
+        return self.horas * 80000
+
+    def descripcion(self):
+        return f"Asesoría especializada: {self.nombre}"
+
+
+# -------------------------
+# Programa principal
+# -------------------------
+servicios = [
+    ReservaSala("Sala de reuniones", 2),
+    AlquilerEquipo("VideoBeam", 3),
+    AsesoriaEspecializada("Python", 4)
+]
+
+print("=== SERVICIOS DISPONIBLES ===\n")
+
+for servicio in servicios:
+    print(servicio.descripcion())
+    print(f"Costo: ${servicio.calcular_costo()}")
+    print("-" * 30)
