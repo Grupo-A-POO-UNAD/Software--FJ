@@ -1,7 +1,6 @@
 
 # INTEGRANTES DEL EQUIPO DE TRABAJO (Paso # 5):
-# 1. [Yesid Leonardo Gómez Ramos]
-# 2. [Karen Stefanny Gil Bohórquez]
+# Encargada: Karen Stefanny Gil Bohórquez
 # Grupo: 213023A_2202
 
 from abc import ABC, abstractmethod
