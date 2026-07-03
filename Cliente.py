@@ -1,6 +1,5 @@
 
 #INTEGRANTES DEL EQUIPO DE TRABAJO (Paso # 5):
-# 1. [Yesid Leonardo Gómez Ramos]
 # 2. [Karen Stefanny Gil Bohórquez]
 # Grupo: 213023A_2202
 
@@ -59,9 +58,7 @@ class cliente(Entidad):
         self.__telefono = nuevo_telefono
         self.validar_datos()
 
-    # ==========================
     # MÉTODOS OBLIGATORIOS
-    # ==========================
 
     def validar_datos(self):
         """
