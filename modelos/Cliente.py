@@ -3,7 +3,7 @@
 # 2. [Karen Stefanny Gil Bohórquez]
 # Grupo: 213023A_2202
 
-from entidad import Entidad
+from modelos.entidad import Entidad
 
 class cliente(Entidad):
     """
